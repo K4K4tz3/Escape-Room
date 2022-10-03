@@ -13,9 +13,14 @@ namespace Escape_Room
             Vector2 oldPlayerPosition;
             Vector2 newPlayerPosition = new Vector2(0, 0);
             Vector2 doorPosition;
+            Console.CursorVisible = false;
             #endregion
             #region GameLoop
-            PrintText(new List<string>() { "Dear Traveler.", "You arrived.", "Your mission is to escape this room.", "Do that by using wasd to move around.", "The question is how do you escape?", "But that is up to you..." }            );
+            PrintText(new List<string>() { "Dear Traveler.", "You arrived.", 
+                                           "Your mission is to escape this room.", 
+                                           "Do that by using wasd to move around.", 
+                                           "The question is how do you escape?", 
+                                           "But that is up to you..." }            );
             for(int i = 0; i < randomNumber.Next(3,9); i++)
             {
                 CreateRoom(out int[,] room, randomNumber, out oldPlayerPosition, out doorPosition);
@@ -25,7 +30,9 @@ namespace Escape_Room
                 {
                     Thread.Sleep(600);
                     Console.Clear();
-                    PrintText("HAHAHAHahaha...", new List<string> { "You really thought that would be so easy?", "Good luck next time!", "You will never escape!" }, randomNumber);
+                    PrintText("HAHAHAHahaha...", new List<string> { "You really thought that would be so easy?", 
+                                                                    "Good luck next time!", 
+                                                                    "You will never escape!" }, randomNumber);
                 }
                 while (loop)
                 {
@@ -40,7 +47,9 @@ namespace Escape_Room
             }
             Thread.Sleep(1200);
             Console.Clear();
-            PrintText(new List<string>() { "You've escaped.", "You did well for such a primitive being...", "Farewell and good luck for you so you won't get captured again." });
+            PrintText(new List<string>() { "You've escaped.", 
+                                           "You did well for such a primitive being...",
+                                           "Farewell and good luck for you so you won't get captured again." });
             #endregion
         }
         static void CreateRoom(out int[,] room, Random randomNumber, out Vector2 PlayerPosition, out Vector2 doorPosition)
@@ -138,7 +147,7 @@ namespace Escape_Room
                             break;
                         case 6:
                             Console.BackgroundColor = ConsoleColor.Gray;
-                            Console.ForegroundColor = ConsoleColor.Green;
+                            Console.ForegroundColor = ConsoleColor.DarkGreen;
                             Console.Write("@");
                             break;
                     }
@@ -155,18 +164,22 @@ namespace Escape_Room
             switch (keyInfo.Key)
             {
                 case ConsoleKey.W:
+                case ConsoleKey.UpArrow:
                     newPlayerPosition.X = oldPlayerPosition.X;
                     newPlayerPosition.Y = oldPlayerPosition.Y - 1;
                     break;
                 case ConsoleKey.A:
+                case ConsoleKey.LeftArrow:
                     newPlayerPosition.X = oldPlayerPosition.X - 1;
                     newPlayerPosition.Y = oldPlayerPosition.Y;
                     break;
                 case ConsoleKey.D:
+                case ConsoleKey.RightArrow:
                     newPlayerPosition.X = oldPlayerPosition.X + 1;
                     newPlayerPosition.Y = oldPlayerPosition.Y;
                     break;
                 case ConsoleKey.S:
+                case ConsoleKey.DownArrow:
                     newPlayerPosition.X = oldPlayerPosition.X;
                     newPlayerPosition.Y = oldPlayerPosition.Y + 1;
                     break;
