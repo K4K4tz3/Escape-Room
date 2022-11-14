@@ -16,6 +16,8 @@ namespace Escape_Room
             Console.CursorVisible = false;
             #endregion
             #region GameLoop
+            // The game starts with a introduction to the player. Afterwards the player is moved into the maze.
+            // The "for" loop represents each layer of the Dungeon. While each "while" loop represents one room.
             PrintText(new List<string>() { "Dear Traveler.", "You arrived.", 
                                            "Your mission is to escape this room.", 
                                            "Do that by using wasd to move around.", 
@@ -114,12 +116,15 @@ namespace Escape_Room
         }
         static void UpdatePlayerPosition(ref int[,] room, ref Vector2 oldPlayerPosition, Vector2 newPlayerPosition)
         {
+            // Just updates the player position. So that the new position, where the player moved to, is now the old player position
             room[(int)oldPlayerPosition.Y, (int)oldPlayerPosition.X] = 0;
             room[(int)newPlayerPosition.Y, (int)newPlayerPosition.X] = 6;
             oldPlayerPosition = newPlayerPosition;
         }
         static void PrintRoom(int[,] room)
         {
+            // The method goes through each cell individually. I dont print the value of the cell,
+            // but for each value there is a corresponding color, that will be printed insted
             Console.WriteLine();
             for (int y = 0; y < room.GetLength(0); y++)
             {
@@ -153,14 +158,13 @@ namespace Escape_Room
                     }
                     if (x == 0 || x == room.GetLength(1)) Console.BackgroundColor = ConsoleColor.Gray;
                     else Console.BackgroundColor = ConsoleColor.Black;
-
-                    //Console.Write(" ");
                 }
                 Console.WriteLine();
             }
         }
         static Vector2 CheckKeyPress(ConsoleKeyInfo keyInfo, int[,] room, Vector2 oldPlayerPosition, Vector2 newPlayerPosition, ref bool ownKey)
         {
+            // First the input will be checked
             switch (keyInfo.Key)
             {
                 case ConsoleKey.W:
@@ -185,6 +189,9 @@ namespace Escape_Room
                     break;
             }
             Vector2 position = new Vector2((int)newPlayerPosition.Y, (int)newPlayerPosition.X);
+            // If the movement is valid, it will be checked if the new position is in the array
+            // If it's in the array, the method will return the new (moved) player positon
+            // If it's not in the array, the method will return the old (un-moved) player position
             try
             {
                 switch (room[(int)newPlayerPosition.Y, (int)newPlayerPosition.X])
@@ -209,6 +216,7 @@ namespace Escape_Room
         }
         static void PrintText(List<string> text)
         {
+            // This method just prints each letter of a text seperatly with a small wait time in between
             Console.BackgroundColor = ConsoleColor.Black;
             Console.ForegroundColor = ConsoleColor.White;
             foreach(string line in text)
@@ -224,6 +232,7 @@ namespace Escape_Room
         }
         static void PrintText(string laughter, List<string> text, Random randomNumber)
         {
+            // You can give the method multiple texts and the method will print one random text
             Console.BackgroundColor = ConsoleColor.Black;
             Console.ForegroundColor = ConsoleColor.White;
             foreach (char letter in laughter)
